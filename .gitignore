@@ -36,6 +36,5 @@ out/
 ### VS Code ###
 .vscode/
 
-TODO.ods
-*.docx#
-*.ods#
+docs/*
+!/docs/Teste.docx
