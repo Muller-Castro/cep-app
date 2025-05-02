@@ -6,20 +6,18 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-public class UserTests {
+import com.muller.cepapp.TestData;
 
-    private static final String NAME     = "User Name";
-    private static final String EMAIL    = "user.name@example.com";
-    private static final String PASSWORD = "password123";
+public class UserTests {
 
     @Test
     @DisplayName("User constructor should work")
     void createUserInstance() {
-        User user = new User(NAME, EMAIL, PASSWORD);
+        User user = new User(TestData.NAME, TestData.EMAIL, TestData.PASSWORD);
         assertNotNull(user);
-        assertEquals(NAME, user.getName());
-        assertEquals(EMAIL, user.getEmail());
-        assertEquals(PASSWORD, user.getPassword());
+        assertEquals(TestData.NAME, user.getName());
+        assertEquals(TestData.EMAIL, user.getEmail());
+        assertEquals(TestData.PASSWORD, user.getPassword());
     }
     
 }
