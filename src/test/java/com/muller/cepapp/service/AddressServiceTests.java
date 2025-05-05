@@ -37,7 +37,7 @@ public class AddressServiceTests {
     void setup() {
         user = userService.createUser(new User(TestData.NAME, TestData.EMAIL, TestData.PASSWORD, TestData.ROLE));
 
-        addressService.createAddress(new Address(TestData.STREET, TestData.NUMBER, TestData.COMPLEMENT, TestData.NEIGHBORHOOD, TestData.CITY, TestData.STATE, TestData.ZIP_CODE, user));
+        addressService.createAddress(new Address(TestData.STREET, TestData.NUMBER, TestData.COMPLEMENT, TestData.NEIGHBORHOOD, TestData.CITY, TestData.STATE, TestData.ZIP_CODE, user), user.getId());
     }
 
     @Test
@@ -45,7 +45,7 @@ public class AddressServiceTests {
     void shouldFailUpdateAddressNotFound() throws Exception {
         long nonExistentAddressId = -1L;
 
-        Address updatedAddress = new Address("Updated Street", "123", "Updated Complement", "Updated Neighborhood", "Updated City", "Updated State", "12345-678", user);
+        Address updatedAddress = new Address("Updated Street", "123", "Updated Complement", "Updated Neighborhood", "Updated City", "Updated State", "01001000", user);
 
         AddressNotFoundException exception = assertThrows(AddressNotFoundException.class, () -> {
             addressService.updateAddress(nonExistentAddressId, updatedAddress);

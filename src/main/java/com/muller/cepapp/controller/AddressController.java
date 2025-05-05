@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.muller.cepapp.entity.Address;
 import com.muller.cepapp.exception.AddressNotFoundException;
+import com.muller.cepapp.security.UserSecurityDetails;
 import com.muller.cepapp.service.AddressService;
 
 @RestController
@@ -44,8 +46,9 @@ public class AddressController {
     }
 
     @PostMapping
-    public ResponseEntity<Address> createAddress(@RequestBody Address address) {
-        Address createdAddress = addressService.createAddress(address);
+    public ResponseEntity<Address> createAddress(@RequestBody Address address, @AuthenticationPrincipal UserSecurityDetails userSecurityDetails) {
+        Long userId = userSecurityDetails.getId();
+        Address createdAddress = addressService.createAddress(address, userId);
         return new ResponseEntity<>(createdAddress, HttpStatus.CREATED);
     }
 

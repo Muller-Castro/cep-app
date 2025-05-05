@@ -63,7 +63,7 @@ public class AddressControllerTests {
 
         jwtToken = jwtService.generateToken(userDetailsService.loadUserByUsername(TestData.EMAIL));
 
-        testAddress = addressService.createAddress(new Address(TestData.STREET, TestData.NUMBER, TestData.COMPLEMENT, TestData.NEIGHBORHOOD, TestData.CITY, TestData.STATE, TestData.ZIP_CODE, testUser));
+        testAddress = addressService.createAddress(new Address(TestData.STREET, TestData.NUMBER, TestData.COMPLEMENT, TestData.NEIGHBORHOOD, TestData.CITY, TestData.STATE, TestData.ZIP_CODE, testUser), testUser.getId());
     }
 
     @Test
@@ -98,20 +98,20 @@ public class AddressControllerTests {
     @Test
     @DisplayName("Should create a new address")
     void shouldCreateAddress() throws Exception {
-        Address newAddress = new Address("New Street", "456", "Apt 10", "New Neighborhood", "New City", "SP", "54321876", testUser);
+        Address newAddress = new Address("New Street", "456", "Apt 10", "New Neighborhood", "New City", "SP", "01001000", testUser);
         mockMvc.perform(MockMvcRequestBuilders.post("/addresses")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(newAddress))
                 .header("Authorization", "Bearer " + jwtToken))
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.street").value("New Street"));
+                .andExpect(jsonPath("$.street").value("Praça da Sé"));
     }
 
     @Test
     @DisplayName("Should update an existing address")
     void shouldUpdateAddress() throws Exception {
-        Address updatedAddress = new Address("Updated Street", "789", "Suite 20", "Updated Neighborhood", "Updated City", "RJ", "98765432", testUser);
+        Address updatedAddress = new Address("Updated Street", "789", "Suite 20", "Updated Neighborhood", "Updated City", "RJ", "01001000", testUser);
 
         mockMvc.perform(MockMvcRequestBuilders.put("/addresses/" + testAddress.getId())
                 .contentType(MediaType.APPLICATION_JSON)
@@ -119,13 +119,13 @@ public class AddressControllerTests {
                 .header("Authorization", "Bearer " + jwtToken))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.street").value("Updated Street"));
+                .andExpect(jsonPath("$.street").value("Praça da Sé"));
     }
 
     @Test
     @DisplayName("Should return NOT FOUND when updating a non existent address")
     void shouldReturnNotFoundWhenUpdatingNonExistentAddress() throws Exception {
-        Address updatedAddress = new Address("Updated Street", "789", "Suite 20", "Updated Neighborhood", "Updated City", "RJ", "98765432", testUser);
+        Address updatedAddress = new Address("Updated Street", "789", "Suite 20", "Updated Neighborhood", "Updated City", "RJ", "01001000", testUser);
         mockMvc.perform(MockMvcRequestBuilders.put("/addresses/-1")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(updatedAddress))
@@ -177,7 +177,7 @@ public class AddressControllerTests {
         SimpleEntry<User, String> regularUserAndToken = TestMethods.createRegularUser(userService, userDetailsService, jwtService);
         User regularUser = regularUserAndToken.getKey();
         String regularUserToken = regularUserAndToken.getValue();
-        Address addressForRegularUser = addressService.createAddress(new Address("Regular User Street", "123", "Apt 5", "Some Neighborhood", "Some City", "SP", "12345678", regularUser));
+        Address addressForRegularUser = addressService.createAddress(new Address("Regular User Street", "123", "Apt 5", "Some Neighborhood", "Some City", "SP", "01001000", regularUser), regularUser.getId());
 
         mockMvc.perform(MockMvcRequestBuilders.get("/addresses/" + addressForRegularUser.getId())
                 .header("Authorization", "Bearer " + regularUserToken))
@@ -187,7 +187,7 @@ public class AddressControllerTests {
     @Test
     @DisplayName("Admin should be able to create a new address")
     void adminShouldCreateAddress() throws Exception {
-        Address newAddress = new Address("New Street", "456", "Apt 10", "New Neighborhood", "New City", "SP", "54321876", testUser);
+        Address newAddress = new Address("New Street", "456", "Apt 10", "New Neighborhood", "New City", "SP", "01001000", testUser);
         mockMvc.perform(MockMvcRequestBuilders.post("/addresses")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(newAddress))
@@ -201,20 +201,20 @@ public class AddressControllerTests {
         SimpleEntry<User, String> regularUserAndToken = TestMethods.createRegularUser(userService, userDetailsService, jwtService);
         User regularUser = regularUserAndToken.getKey();
         String regularUserToken = regularUserAndToken.getValue();
-        Address newAddress = new Address("New Street", "456", "Apt 10", "New Neighborhood", "New City", "SP", "54321876", regularUser);
+        Address newAddress = new Address("New Street", "456", "Apt 10", "New Neighborhood", "New City", "SP", "01001000", regularUser);
         mockMvc.perform(MockMvcRequestBuilders.post("/addresses")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(newAddress))
                 .header("Authorization", "Bearer " + regularUserToken))
                 .andExpect(status().isCreated())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.street").value("New Street"));
+                .andExpect(jsonPath("$.street").value("Praça da Sé"));
     }
 
     @Test
     @DisplayName("Admin should be able to update an existing address")
     void adminShouldBeAbleToUpdateAddress() throws Exception {
-        Address updatedAddress = new Address("Updated Street", "789", "Suite 20", "Updated Neighborhood", "Updated City", "SP", "98765432", testUser);
+        Address updatedAddress = new Address("Updated Street", "789", "Suite 20", "Updated Neighborhood", "Updated City", "SP", "01001000", testUser);
         mockMvc.perform(MockMvcRequestBuilders.put("/addresses/" + testAddress.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(updatedAddress))
@@ -228,7 +228,7 @@ public class AddressControllerTests {
         SimpleEntry<User, String> regularUserAndToken = TestMethods.createRegularUser(userService, userDetailsService, jwtService);
         User regularUser = regularUserAndToken.getKey();
         String regularUserToken = regularUserAndToken.getValue();
-        Address updatedAddress = new Address("Updated Street", "789", "Suite 20", "Updated Neighborhood", "Updated City", "SP", "98765432", regularUser);
+        Address updatedAddress = new Address("Updated Street", "789", "Suite 20", "Updated Neighborhood", "Updated City", "SP", "01001000", regularUser);
         mockMvc.perform(MockMvcRequestBuilders.put("/addresses/" + testAddress.getId())
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(updatedAddress))

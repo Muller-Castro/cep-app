@@ -31,6 +31,20 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(body, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(ViaCEPException.class)
+    public ResponseEntity<Object> handleViaCEPException(ViaCEPException ex) {
+        Map<String, Object> body = createBody(ex.getMessage());
+        
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(InvalidZipCodeException.class)
+    public ResponseEntity<Object> handleZipCodeException(InvalidZipCodeException ex) {
+        Map<String, Object> body = createBody(ex.getMessage());
+        
+        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(ConstraintViolationException.class)
     public ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException ex) {
         Map<String, Object> body = createBody("Validation error");

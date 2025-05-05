@@ -9,12 +9,12 @@ public class TestData {
     public static final String PASSWORD = "password123";
     public static final User.Role ROLE  = User.Role.ROLE_USER;
 
-    public static final String STREET       = "STREET";
-    public static final String NUMBER       = "123";
+    public static final String STREET       = "Praça dos Três Poderes";
+    public static final String NUMBER       = "0";
     public static final String COMPLEMENT   = "COMPLEMENT";
-    public static final String NEIGHBORHOOD = "NEIGHBORHOOD";
-    public static final String CITY         = "CITY";
-    public static final String STATE        = "SP";
-    public static final String ZIP_CODE     = "12345678";
+    public static final String NEIGHBORHOOD = "Zona Cívico-Administrativa";
+    public static final String CITY         = "Brasília";
+    public static final String STATE        = "DF";
+    public static final String ZIP_CODE     = "70160900";
     
 }
