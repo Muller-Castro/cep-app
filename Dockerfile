@@ -10,4 +10,4 @@ FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
 COPY --from=builder /app/build/libs/cepapp.jar ./cepapp.jar
 EXPOSE 8080
-CMD ["java", "-jar", "cepapp.jar"]
+CMD ["java", "-Dspring.profiles.active=prod", "-jar", "cepapp.jar"]
