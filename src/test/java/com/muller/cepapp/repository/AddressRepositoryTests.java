@@ -32,7 +32,7 @@ public class AddressRepositoryTests {
     @Test
     @DisplayName("Should save address and retrieve by ID")
     void saveAddressAndRetrieveById() {
-        User user = new User(TestData.NAME, TestData.EMAIL, TestData.PASSWORD);
+        User user = new User(TestData.NAME, TestData.EMAIL, TestData.PASSWORD, TestData.ROLE);
         User savedUser = userRepository.save(user);
         Address address = new Address(TestData.STREET, TestData.NUMBER, TestData.COMPLEMENT, TestData.NEIGHBORHOOD, TestData.CITY, TestData.STATE, TestData.ZIP_CODE, savedUser);
         Address savedAddress = addressRepository.save(address);
@@ -45,7 +45,7 @@ public class AddressRepositoryTests {
     @Test
     @DisplayName("Should find addresses by user")
     void findAddressesByUser() {
-        User user = new User(TestData.NAME, TestData.EMAIL, TestData.PASSWORD);
+        User user = new User(TestData.NAME, TestData.EMAIL, TestData.PASSWORD, TestData.ROLE);
         User savedUser = userRepository.save(user);
         addressRepository.saveAll(List.of(
                 new Address("STREET_A", "1", null, "NEIGHBORHOOD_A", "CITY_A", "SP", "11111111", savedUser),
@@ -60,7 +60,7 @@ public class AddressRepositoryTests {
     @Test
     @DisplayName("Should find addresses by user with pagination")
     void findAddressesByUserWithPagination() {
-        User user = new User(TestData.NAME, TestData.EMAIL, TestData.PASSWORD);
+        User user = new User(TestData.NAME, TestData.EMAIL, TestData.PASSWORD, TestData.ROLE);
         User savedUser = userRepository.save(user);
         addressRepository.saveAll(List.of(
                 new Address("STREET_A", "1", null, "NEIGHBORHOOD_A", "CITY_A", "SP", "11111111", savedUser),

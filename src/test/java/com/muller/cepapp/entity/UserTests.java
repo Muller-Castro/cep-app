@@ -13,7 +13,7 @@ public class UserTests {
     @Test
     @DisplayName("User constructor should work")
     void createUserInstance() {
-        User user = new User(TestData.NAME, TestData.EMAIL, TestData.PASSWORD);
+        User user = new User(TestData.NAME, TestData.EMAIL, TestData.PASSWORD, TestData.ROLE);
         assertNotNull(user);
         assertEquals(TestData.NAME, user.getName());
         assertEquals(TestData.EMAIL, user.getEmail());

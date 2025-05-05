@@ -13,7 +13,7 @@ public class AddressTests {
     @Test
     @DisplayName("Address constructor should work")
     void createAddressInstance() {
-        User user = new User(TestData.NAME, TestData.EMAIL, TestData.PASSWORD);
+        User user = new User(TestData.NAME, TestData.EMAIL, TestData.PASSWORD, TestData.ROLE);
         assertNotNull(user);
         Address address = new Address(TestData.STREET, TestData.NUMBER, TestData.COMPLEMENT, TestData.NEIGHBORHOOD, TestData.CITY, TestData.STATE, TestData.ZIP_CODE, user);
         assertNotNull(address);

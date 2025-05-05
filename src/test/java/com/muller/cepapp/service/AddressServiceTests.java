@@ -35,7 +35,7 @@ public class AddressServiceTests {
     
     @BeforeEach
     void setup() {
-        user = userService.createUser(new User(TestData.NAME, TestData.EMAIL, TestData.PASSWORD));
+        user = userService.createUser(new User(TestData.NAME, TestData.EMAIL, TestData.PASSWORD, TestData.ROLE));
 
         addressService.createAddress(new Address(TestData.STREET, TestData.NUMBER, TestData.COMPLEMENT, TestData.NEIGHBORHOOD, TestData.CITY, TestData.STATE, TestData.ZIP_CODE, user));
     }

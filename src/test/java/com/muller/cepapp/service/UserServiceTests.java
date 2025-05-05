@@ -29,14 +29,14 @@ public class UserServiceTests {
 
     @BeforeEach
     void setup() {
-        userService.createUser(new User(TestData.NAME, TestData.EMAIL, TestData.PASSWORD));
+        userService.createUser(new User(TestData.NAME, TestData.EMAIL, TestData.PASSWORD, TestData.ROLE));
     }
 
     @Test
     @DisplayName("Should throw \"UserNotFoundException\" if updating non existent user")
     void shouldFailUpdateUserNotFound() throws Exception {
         long nonExistentUserId = -1L;
-        User updatedUser = new User("Updated Name", "updated@example.com", "newPassword");
+        User updatedUser = new User("Updated Name", "updated@example.com", "newPassword", TestData.ROLE);
         UserNotFoundException exception = assertThrows(UserNotFoundException.class, () -> {
             userService.updateUser(nonExistentUserId, updatedUser);
         });

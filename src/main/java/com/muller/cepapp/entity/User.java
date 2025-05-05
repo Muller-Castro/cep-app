@@ -8,6 +8,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,6 +27,11 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 public class User {
+
+    public enum Role {
+        ROLE_USER,
+        ROLE_ADMIN
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -53,14 +60,19 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Address> addresses;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+
     @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
-    public User(String name, String email, String password) {
+    public User(String name, String email, String password, Role role) {
         this.name     = name;
         this.email    = email;
         this.password = password;
+        this.role     = role;
     }
     
 }
